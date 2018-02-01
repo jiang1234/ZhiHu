@@ -28,4 +28,8 @@ public class LatestNewsApi {
     public Observable<LatestNews> getLatestNews(){
         return latestNewsApiServer.getLatestNews();
     }
+
+    public Observable<LatestNews> getBeforeNews(String dateId){
+        return latestNewsApiServer.getBeforeNews(dateId);
+    }
 }

@@ -19,4 +19,5 @@ public interface IBase {
 
     void initDate();
 
+
 }

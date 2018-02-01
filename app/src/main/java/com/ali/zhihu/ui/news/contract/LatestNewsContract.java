@@ -13,9 +13,14 @@ public interface LatestNewsContract {
     interface LastNewsPresenter extends BaseContract.BasePresenter<LastestNewView>{
         void getLatestNews();
 
+        void getBeforeNews(String dateId);
+
     }
     interface LastestNewView extends BaseContract.BaseView{
-        void loadView(List<LatestNews.StoriesBean> latestNewsStoriesBean);
+        void loadLatestView(List<LatestNews.StoriesBean> latestNewsStoriesBean);
 
+        void loadBeforeView(List<LatestNews.StoriesBean> latestNewsStoriesBean);
+
+        void setDate(String date);
     }
 }

@@ -19,6 +19,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
+
 /**
  * Created by Administrator on 2018/1/30.
  */
@@ -33,6 +35,7 @@ public class LatestNewsPresenter extends BasePresenter<LatestNewsContract.Lastes
     }
     @Override
     public void getLatestNews() {
+
         Observable<LatestNews> observable = latestNewsApi.getLatestNews();
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -41,7 +44,8 @@ public class LatestNewsPresenter extends BasePresenter<LatestNewsContract.Lastes
                     public List<LatestNews.StoriesBean> apply(LatestNews latestsNews) throws Exception{
                         List<LatestNews.StoriesBean> storiesBeenList = new ArrayList<>();
                         storiesBeenList = latestsNews.getStories();
-                        mView.loadView(storiesBeenList);
+                        mView.setDate(latestsNews.getDate());
+                        mView.loadLatestView(storiesBeenList);
                         return storiesBeenList;
 
                     }
@@ -49,6 +53,32 @@ public class LatestNewsPresenter extends BasePresenter<LatestNewsContract.Lastes
                 .subscribe(new BaseObserver<List<LatestNews.StoriesBean>>(){
                     @Override
                     public void onSuccsee(List<LatestNews.StoriesBean> s) {
+                        Log.i(TAG,"success");
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        Log.i(TAG,"fail");
+                    }
+                });
+    }
+
+    @Override
+    public void getBeforeNews(String dateId) {
+        latestNewsApi.getBeforeNews(dateId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Function<LatestNews, List<LatestNews.StoriesBean>>(){
+                    @Override
+                    public List<LatestNews.StoriesBean> apply(LatestNews latestNews) throws Exception {
+                        List<LatestNews.StoriesBean> beforeStoriesBeanList = latestNews.getStories();
+                        mView.loadBeforeView(beforeStoriesBeanList);
+                        return beforeStoriesBeanList;
+                    }
+                })
+                .subscribe(new BaseObserver<List<LatestNews.StoriesBean>>() {
+                    @Override
+                    public void onSuccsee(List<LatestNews.StoriesBean> storiesBeen) {
                         Log.i(TAG,"success");
                     }
 

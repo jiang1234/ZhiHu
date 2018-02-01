@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">ZhiHu</string>
+    <string name="app_name">知乎</string>
     <string name="latest_news_text">test</string>
+    <string name="latest_date_text">今日热闻</string>>
 </resources>

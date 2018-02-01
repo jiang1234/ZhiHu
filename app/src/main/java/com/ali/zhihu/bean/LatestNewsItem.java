@@ -7,13 +7,23 @@ import com.ali.zhihu.bean.LatestNews;
  */
 
 public class LatestNewsItem {
+    public final static int TYPE_NEW = 0;
+    public final static int TYPE_DATE = 1;
     private String news;
-    private int imageId;
-    public LatestNewsItem(String news,int imageId){
+    private String imageId;
+    private String date;
+    private int type;
+
+    public LatestNewsItem(String news,String imageId,int type){
         this.news = news;
         this.imageId = imageId;
+        this.type = type;
     }
 
+    public LatestNewsItem(String date,int type){
+        this.date = date;
+        this.type = type;
+    }
     public String getNews() {
         return news;
     }
@@ -22,11 +32,27 @@ public class LatestNewsItem {
         this.news = news;
     }
 
-    public int getImageId() {
+    public String getImageId() {
         return imageId;
     }
 
-    public void setImageId(int imageId) {
+    public void setImageId(String imageId) {
         this.imageId = imageId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
