@@ -39,6 +39,7 @@ import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> implements LatestNewsContract.LastestNewView{
     public static final String TAG = "LastestNewsFragment";
     private LatestNewsAdapter latestNewsAdapter;
+    //private MyAdapter latestNewsAdapter;
     private RecyclerView latestNewsRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Banner banner;
@@ -94,7 +95,7 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
         banner.setIndicatorGravity(BannerConfig.CENTER);
         banner.setImageLoader(new ImageLoaderUtil.GlideBannerImageLoader());
         banner.setDelayTime(1500);
-        //banner.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, MyApplication.getWidth()/4));
+        banner.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, MyApplication.getHeight()/3));
 
         //banner1.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //banner1.setIndicatorGravity(BannerConfig.CENTER);
@@ -107,6 +108,7 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         latestNewsRecyclerView.setLayoutManager(layoutManager);
         latestNewsAdapter = new LatestNewsAdapter(latestNewsItemsList);
+        //latestNewsAdapter = new MyAdapter(latestNewsItemsList);
 
         latestNewsRecyclerView.setAdapter(latestNewsAdapter);
         latestNewsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -148,6 +150,7 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
         LatestNewsItem latestNewsItem0= new LatestNewsItem(date,LatestNewsItem.TYPE_DATE);
         latestNewsItemsList.add(0,latestNewsItem0);
         int i = 1;
+        //int i = 0;
         for(LatestNews.StoriesBean storiesBean : storiesBeanList){
             LatestNewsItem latestNewsItem= new LatestNewsItem(storiesBean.getTitle(),storiesBean.getImages().get(0),LatestNewsItem.TYPE_NEW);
             latestNewsItemsList.add(i,latestNewsItem);
@@ -197,6 +200,7 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
             presenter.getLatestNews();
         }else{
             //presenter.getLatestNews();
+            isRefresh = false;
             swipeRefreshLayout.setRefreshing(false);
         }
     }

@@ -45,8 +45,9 @@ public class LatestNewsPresenter extends BasePresenter<LatestNewsContract.Lastes
                         List<LatestNews.StoriesBean> storiesBeenList = latestsNews.getStories();
                         List<LatestNews.TopStoriesBean> topStoriesBeenList = latestsNews.getTop_stories();
                         mView.setDate(latestsNews.getDate());
-                        mView.loadLatestView(storiesBeenList);
+
                         mView.loadLatestBanner(topStoriesBeenList);
+                        mView.loadLatestView(storiesBeenList);
                         return topStoriesBeenList;
 
                     }

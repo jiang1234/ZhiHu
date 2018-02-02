@@ -35,6 +35,7 @@ public class LatestNewsAdapter extends RecyclerView.Adapter {
 
     public void setHeaderView(View headerView) {
         this.headerView = headerView;
+        notifyItemInserted(0);
     }
 
     static class HeaderViewHolder extends RecyclerView.ViewHolder{
@@ -111,14 +112,22 @@ public class LatestNewsAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-
-        if(headerView != null && position == 0){
-            return TYPE_HEADER;
-        }else if(!mlatestNewsItemList.isEmpty() && mlatestNewsItemList.get(position - 1).getType() == LatestNewsItem.TYPE_DATE){
-            return TYPE_DATE;
-        }
-        else{
-            return TYPE_NEW;
+        if(headerView == null){
+            if(!mlatestNewsItemList.isEmpty() && mlatestNewsItemList.get(position).getType() == LatestNewsItem.TYPE_DATE){
+                return TYPE_DATE;
+            }
+            else{
+                return TYPE_NEW;
+            }
+        }else{
+            if(position == 0){
+                return TYPE_HEADER;
+            }else if(!mlatestNewsItemList.isEmpty() && mlatestNewsItemList.get(position - 1).getType() == LatestNewsItem.TYPE_DATE){
+                return TYPE_DATE;
+            }
+            else{
+                return TYPE_NEW;
+            }
         }
     }
 
