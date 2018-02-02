@@ -4,8 +4,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.ali.zhihu.MyApplication;
 import com.ali.zhihu.R;
 import com.ali.zhihu.bean.LatestNews;
 import com.ali.zhihu.bean.LatestNewsItem;
@@ -17,11 +20,15 @@ import com.ali.zhihu.ui.base.BaseFragment;
 import com.ali.zhihu.ui.news.contract.LatestNewsContract;
 import com.ali.zhihu.ui.news.presenter.LatestNewsPresenter;
 import com.ali.zhihu.ui.util.DateUtil;
+import com.ali.zhihu.ui.util.ImageLoaderUtil;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+//import static com.ali.zhihu.R.id.banner1;
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
@@ -34,9 +41,12 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
     private LatestNewsAdapter latestNewsAdapter;
     private RecyclerView latestNewsRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private TextView textView;
-    private List<LatestNews.StoriesBean> latestNewsStoriesBeanList;
+    private Banner banner;
+    //private Banner banner1;
+    private View headerView;
     private List<LatestNewsItem> latestNewsItemsList;
+    private List<String> bannerList;
+    //private List<String> bannerList1;
     private boolean isLoadMore;
     private boolean isRefresh;
     private String date;
@@ -70,12 +80,34 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
     public void initView() {
 
         latestNewsItemsList = new ArrayList<>();
-        //textView = (TextView) getActivity().findViewById(R.id.get_news);
+        bannerList = new ArrayList<>();
+        //bannerList1 = new ArrayList<>();
+        //bannerList1.add("https://pic1.zhimg.com//v2-20f16da6af017c3c3201159a90a9e530.jpg");
+        //bannerList1.add("https://pic1.zhimg.com//v2-20f16da6af017c3c3201159a90a9e530.jpg");
         swipeRefreshLayout = (SwipeRefreshLayout)getActivity().findViewById(R.id.swipe_refresh);
         latestNewsRecyclerView = (RecyclerView)getActivity().findViewById(R.id.recycler_view_latest_news);
+        //banner1 = (Banner) getActivity().findViewById(R.id.banner1);
+        headerView = getView().inflate(getActivity(),R.layout.latest_header,null);
+        banner = (Banner)headerView.findViewById(R.id.banner);
+
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        banner.setIndicatorGravity(BannerConfig.CENTER);
+        banner.setImageLoader(new ImageLoaderUtil.GlideBannerImageLoader());
+        banner.setDelayTime(1500);
+        //banner.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, MyApplication.getWidth()/4));
+
+        //banner1.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        //banner1.setIndicatorGravity(BannerConfig.CENTER);
+        //banner1.setImageLoader(new ImageLoaderUtil.GlideBannerImageLoader());
+        //banner1.setDelayTime(1500);
+        //banner1.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, MyApplication.getWidth()/4));
+        //banner1.setImages(bannerList1);
+        //banner1.start();
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         latestNewsRecyclerView.setLayoutManager(layoutManager);
         latestNewsAdapter = new LatestNewsAdapter(latestNewsItemsList);
+
         latestNewsRecyclerView.setAdapter(latestNewsAdapter);
         latestNewsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -104,6 +136,9 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
                 }
             }
         });
+
+
+
     }
 
     @Override
@@ -129,6 +164,16 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
     }
 
     @Override
+    public void loadLatestBanner(List<LatestNews.TopStoriesBean> topStoriesBeenList) {
+        for(LatestNews.TopStoriesBean topStoriesBean : topStoriesBeenList){
+        bannerList.add(topStoriesBean.getImage());
+        }
+        banner.setImages(bannerList);
+        banner.start();
+        latestNewsAdapter.setHeaderView(banner);
+    }
+
+    @Override
     public void loadBeforeView(List<LatestNews.StoriesBean> beforeStoriesBeanList) {
         Log.i(TAG,"loadmore"+berforeDateShow);
         int oldItemNum = latestNewsAdapter.getItemCount();
@@ -143,6 +188,8 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
         isLoadMore = false;
 
     }
+
+
 
     public void refreshNews(){
         //presenter.getLatestNews();

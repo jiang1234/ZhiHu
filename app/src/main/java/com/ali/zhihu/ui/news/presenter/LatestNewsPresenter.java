@@ -39,20 +39,21 @@ public class LatestNewsPresenter extends BasePresenter<LatestNewsContract.Lastes
         Observable<LatestNews> observable = latestNewsApi.getLatestNews();
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Function<LatestNews, List<LatestNews.StoriesBean>>() {
+                .map(new Function<LatestNews, List<LatestNews.TopStoriesBean>>() {
                     @Override
-                    public List<LatestNews.StoriesBean> apply(LatestNews latestsNews) throws Exception{
-                        List<LatestNews.StoriesBean> storiesBeenList = new ArrayList<>();
-                        storiesBeenList = latestsNews.getStories();
+                    public List<LatestNews.TopStoriesBean> apply(LatestNews latestsNews) throws Exception{
+                        List<LatestNews.StoriesBean> storiesBeenList = latestsNews.getStories();
+                        List<LatestNews.TopStoriesBean> topStoriesBeenList = latestsNews.getTop_stories();
                         mView.setDate(latestsNews.getDate());
                         mView.loadLatestView(storiesBeenList);
-                        return storiesBeenList;
+                        mView.loadLatestBanner(topStoriesBeenList);
+                        return topStoriesBeenList;
 
                     }
                 })
-                .subscribe(new BaseObserver<List<LatestNews.StoriesBean>>(){
+                .subscribe(new BaseObserver<List<LatestNews.TopStoriesBean>>(){
                     @Override
-                    public void onSuccsee(List<LatestNews.StoriesBean> s) {
+                    public void onSuccsee(List<LatestNews.TopStoriesBean> s) {
                         Log.i(TAG,"success");
                     }
 

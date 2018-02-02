@@ -142,7 +142,7 @@ public class LatestNews implements Serializable {
         private String title;
         //供Goole Analytics使用
         private String ga_prefix;
-        private List<String> images;
+        private String image;
         //作用未知
         private int type;
         //内容id
@@ -153,7 +153,7 @@ public class LatestNews implements Serializable {
             return "top_stories:{"
                     + "title:" + title +","
                     + "ga_prefix" + ga_prefix +","
-                    + "images: [" + images +"],"
+                    + "image: [" + image +"],"
                     + "type:" + type +","
                     + "id:" + id +","
                     + "}";
@@ -175,12 +175,12 @@ public class LatestNews implements Serializable {
             this.ga_prefix = ga_prefix;
         }
 
-        public List<String> getImages() {
-            return images;
+        public String getImage() {
+            return image;
         }
 
-        public void setImages(List<String> images) {
-            this.images = images;
+        public void setImage(String image) {
+            this.image = image;
         }
 
         public int getType() {

@@ -21,6 +21,8 @@ public interface LatestNewsContract {
 
         void loadBeforeView(List<LatestNews.StoriesBean> latestNewsStoriesBean);
 
+        void loadLatestBanner(List<LatestNews.TopStoriesBean> topStoriesBeenList);
+
         void setDate(String date);
     }
 }

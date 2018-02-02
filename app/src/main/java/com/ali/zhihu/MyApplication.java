@@ -2,7 +2,10 @@ package com.ali.zhihu;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.multidex.MultiDex;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
 import com.ali.zhihu.component.ApplicationComponent;
 import com.ali.zhihu.component.DaggerApplicationComponent;
@@ -17,6 +20,8 @@ import com.ali.zhihu.module.ApplicationModule;
 public class MyApplication extends Application {
     private static Context context;
     private static ApplicationComponent applicationComponent;
+    private static int width;
+    private static int height;
 
     @Override
     public void onCreate() {
@@ -25,6 +30,12 @@ public class MyApplication extends Application {
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(context))
                 .build();
+
+        //获得屏幕高宽
+        Resources resources = this.getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        width = dm.widthPixels;
+        height = dm.heightPixels;
     }
 
     public static Context getContext(){
@@ -42,5 +53,13 @@ public class MyApplication extends Application {
 
         MultiDex.install(this);
 
+    }
+
+    public static int getWidth() {
+        return width;
+    }
+
+    public static int getHeight() {
+        return height;
     }
 }

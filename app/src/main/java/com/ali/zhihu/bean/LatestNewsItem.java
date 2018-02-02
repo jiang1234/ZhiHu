@@ -9,6 +9,7 @@ import com.ali.zhihu.bean.LatestNews;
 public class LatestNewsItem {
     public final static int TYPE_NEW = 0;
     public final static int TYPE_DATE = 1;
+    public final static int TYPE_HEADER = 2;
     private String news;
     private String imageId;
     private String date;
@@ -24,6 +25,7 @@ public class LatestNewsItem {
         this.date = date;
         this.type = type;
     }
+
     public String getNews() {
         return news;
     }

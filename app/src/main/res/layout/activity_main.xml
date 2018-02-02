@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ali.zhihu.MainActivity">
-    <LinearLayout
+    <FrameLayout
         android:orientation="vertical"
         android:id="@+id/fragment_layout"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
-    </LinearLayout>
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>
