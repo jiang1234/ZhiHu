@@ -1,5 +1,7 @@
 package com.ali.zhihu.ui.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import com.ali.zhihu.MyApplication;
 import com.ali.zhihu.R;
 import com.ali.zhihu.bean.LatestNews;
 import com.ali.zhihu.bean.LatestNewsItem;
+import com.ali.zhihu.ui.news.ReadArticleActivity;
 import com.ali.zhihu.ui.util.DateUtil;
 import com.ali.zhihu.ui.util.ImageLoaderUtil;
 import com.bumptech.glide.Glide;
@@ -32,6 +35,7 @@ public class LatestNewsAdapter extends RecyclerView.Adapter {
     public final static int TYPE_HEADER = 2;
 
     private View headerView;
+    private Context context;
 
     public void setHeaderView(View headerView) {
         this.headerView = headerView;
@@ -64,8 +68,9 @@ public class LatestNewsAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public LatestNewsAdapter(List<LatestNewsItem> mlatestNewsItemList){
+    public LatestNewsAdapter(List<LatestNewsItem> mlatestNewsItemList,Context context){
         this.mlatestNewsItemList = mlatestNewsItemList;
+        this.context = context;
     }
 
     @Override
@@ -77,7 +82,16 @@ public class LatestNewsAdapter extends RecyclerView.Adapter {
             return new DateViewHolder(dateView);
         }else{
             View newView = LayoutInflater.from(parent.getContext()).inflate(R.layout.latest_news_item,parent,false);
-            return new NewViewHolder(newView);
+            final NewViewHolder newViewHolder = new NewViewHolder(newView);
+            newViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int posotion = getRealPosition(newViewHolder);
+                    String articleId = mlatestNewsItemList.get(posotion).getId();
+                    toReadInRecycler(articleId);
+                }
+            });
+            return newViewHolder;
         }
     }
 
@@ -100,7 +114,7 @@ public class LatestNewsAdapter extends RecyclerView.Adapter {
             LatestNewsItem latestNewsItem = mlatestNewsItemList.get(pos);
             NewViewHolder newViewHolder = (NewViewHolder)holder;
             newViewHolder.news.setText(latestNewsItem.getNews());
-            ImageLoaderUtil.GlideImageLoader(MyApplication.getContext(),latestNewsItem.getImageId(),newViewHolder.image);
+            ImageLoaderUtil.GlideImageLoader(context,latestNewsItem.getImageId(),newViewHolder.image);
         }
 
     }
@@ -134,5 +148,11 @@ public class LatestNewsAdapter extends RecyclerView.Adapter {
     private int getRealPosition(RecyclerView.ViewHolder holder){
         int position = holder.getLayoutPosition();
         return headerView == null ? position :position - 1;
+    }
+
+    public void toReadInRecycler(String articleId){
+        Intent intent = new Intent(context, ReadArticleActivity.class);
+        intent.putExtra(ReadArticleActivity.ARTICLEID,articleId);
+        context.startActivity(intent);
     }
 }

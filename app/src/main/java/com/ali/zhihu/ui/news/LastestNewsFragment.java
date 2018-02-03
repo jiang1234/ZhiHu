@@ -64,7 +64,7 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
     }
 
     @Override
-    public int getFragmentLayout() {
+    public int getLayout() {
         return R.layout.fragment_news_latest;
     }
 
@@ -107,7 +107,7 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         latestNewsRecyclerView.setLayoutManager(layoutManager);
-        latestNewsAdapter = new LatestNewsAdapter(latestNewsItemsList);
+        latestNewsAdapter = new LatestNewsAdapter(latestNewsItemsList,getActivity());
         //latestNewsAdapter = new MyAdapter(latestNewsItemsList);
 
         latestNewsRecyclerView.setAdapter(latestNewsAdapter);
@@ -152,7 +152,7 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
         int i = 1;
         //int i = 0;
         for(LatestNews.StoriesBean storiesBean : storiesBeanList){
-            LatestNewsItem latestNewsItem= new LatestNewsItem(storiesBean.getTitle(),storiesBean.getImages().get(0),LatestNewsItem.TYPE_NEW);
+            LatestNewsItem latestNewsItem= new LatestNewsItem(storiesBean.getTitle(),storiesBean.getImages().get(0),LatestNewsItem.TYPE_NEW,storiesBean.getId());
             latestNewsItemsList.add(i,latestNewsItem);
             i++;
         }
@@ -183,7 +183,7 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
         LatestNewsItem latestNewsItem0= new LatestNewsItem(berforeDateShow,LatestNewsItem.TYPE_DATE);
         latestNewsItemsList.add(latestNewsItem0);
         for(LatestNews.StoriesBean beforeStoriesBean : beforeStoriesBeanList){
-            LatestNewsItem latestNewsItem= new LatestNewsItem(beforeStoriesBean.getTitle(),beforeStoriesBean.getImages().get(0),LatestNewsItem.TYPE_NEW);
+            LatestNewsItem latestNewsItem= new LatestNewsItem(beforeStoriesBean.getTitle(),beforeStoriesBean.getImages().get(0),LatestNewsItem.TYPE_NEW,beforeStoriesBean.getId());
             latestNewsItemsList.add(latestNewsItem);
         }
         latestNewsAdapter.notifyItemRangeChanged(oldItemNum,beforeStoriesBeanList.size() + 1);
@@ -198,6 +198,7 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
         //presenter.getLatestNews();
         if(!DateUtil.isSystemDate(date)){
             presenter.getLatestNews();
+            latestNewsRecyclerView.scrollToPosition(0);
         }else{
             //presenter.getLatestNews();
             isRefresh = false;
@@ -212,4 +213,8 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
         presenter.getLatestNews();
 
     }
+
+
+
+
 }

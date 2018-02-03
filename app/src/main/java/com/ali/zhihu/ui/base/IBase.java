@@ -7,7 +7,7 @@ import com.ali.zhihu.component.ApplicationComponent;
  */
 
 public interface IBase {
-    int getFragmentLayout();
+    int getLayout();
 
     void initInjector(ApplicationComponent applicationComponent);
 

@@ -13,12 +13,14 @@ public class LatestNewsItem {
     private String news;
     private String imageId;
     private String date;
+    private String id;
     private int type;
 
-    public LatestNewsItem(String news,String imageId,int type){
+    public LatestNewsItem(String news,String imageId,int type,String id){
         this.news = news;
         this.imageId = imageId;
         this.type = type;
+        this.id = id;
     }
 
     public LatestNewsItem(String date,int type){
@@ -56,5 +58,13 @@ public class LatestNewsItem {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

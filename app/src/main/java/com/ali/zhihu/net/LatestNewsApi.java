@@ -1,6 +1,7 @@
 package com.ali.zhihu.net;
 
 
+import com.ali.zhihu.bean.Article;
 import com.ali.zhihu.bean.LatestNews;
 
 import io.reactivex.Observable;
@@ -31,5 +32,9 @@ public class LatestNewsApi {
 
     public Observable<LatestNews> getBeforeNews(String dateId){
         return latestNewsApiServer.getBeforeNews(dateId);
+    }
+
+    public Observable<Article> readArticle(String articleId){
+        return latestNewsApiServer.readAticle(articleId);
     }
 }

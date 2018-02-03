@@ -1,5 +1,6 @@
 package com.ali.zhihu.net;
 
+import com.ali.zhihu.bean.Article;
 import com.ali.zhihu.bean.LatestNews;
 
 import io.reactivex.Observable;
@@ -16,5 +17,8 @@ public interface LatestNewsApiServer {
 
     @GET("news/before/{dateId}")
     Observable<LatestNews> getBeforeNews(@Path("dateId") String dateId);
+
+    @GET("news/{articleId}")
+    Observable<Article> readAticle(@Path("articleId") String articleId);
 
 }

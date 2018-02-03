@@ -23,7 +23,7 @@ public abstract class BaseFragment<T extends BaseContract.BasePresenter> extends
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(getFragmentLayout(),container,false);
+        View view = inflater.inflate(getLayout(),container,false);
         return view;
     }
 
