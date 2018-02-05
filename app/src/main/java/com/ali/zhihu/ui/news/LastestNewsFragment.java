@@ -1,5 +1,6 @@
 package com.ali.zhihu.ui.news;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,12 +24,14 @@ import com.ali.zhihu.ui.util.DateUtil;
 import com.ali.zhihu.ui.util.ImageLoaderUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 //import static com.ali.zhihu.R.id.banner1;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
@@ -91,10 +94,10 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
         headerView = getView().inflate(getActivity(),R.layout.latest_header,null);
         banner = (Banner)headerView.findViewById(R.id.banner);
 
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
         banner.setIndicatorGravity(BannerConfig.CENTER);
         banner.setImageLoader(new ImageLoaderUtil.GlideBannerImageLoader());
-        banner.setDelayTime(1500);
+        banner.setDelayTime(3000);
         banner.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, MyApplication.getHeight()/3));
 
         //banner1.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
@@ -167,11 +170,22 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
     }
 
     @Override
-    public void loadLatestBanner(List<LatestNews.TopStoriesBean> topStoriesBeenList) {
+    public void loadLatestBanner(final List<LatestNews.TopStoriesBean> topStoriesBeenList) {
+        List<String> bannerTitleList = new ArrayList<>();
+        bannerList.clear();
+        bannerTitleList.clear();
         for(LatestNews.TopStoriesBean topStoriesBean : topStoriesBeenList){
-        bannerList.add(topStoriesBean.getImage());
+            bannerList.add(topStoriesBean.getImage());
+            bannerTitleList.add(topStoriesBean.getTitle());
         }
         banner.setImages(bannerList);
+        banner.setBannerTitles(bannerTitleList);
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                toReadInBanner(topStoriesBeenList.get(position).getId());
+            }
+        });
         banner.start();
         latestNewsAdapter.setHeaderView(banner);
     }
@@ -214,6 +228,11 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
 
     }
 
+    public void toReadInBanner(String articleId){
+        Intent intent = new Intent(getActivity(), ReadArticleActivity.class);
+        intent.putExtra(ReadArticleActivity.ARTICLEID,articleId);
+        startActivity(intent);
+    }
 
 
 

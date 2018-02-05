@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.news.ReadArticleActivity" />
-        <activity android:name=".ui.base.BasicActivity"></activity>
+        <activity android:name=".ui.base.BasicActivity" />
+        <activity android:name=".ui.news.ReadCommentActivity"></activity>
     </application>
 
 </manifest>

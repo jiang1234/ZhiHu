@@ -2,6 +2,8 @@ package com.ali.zhihu.net;
 
 import com.ali.zhihu.bean.Article;
 import com.ali.zhihu.bean.LatestNews;
+import com.ali.zhihu.bean.LongComment;
+import com.ali.zhihu.bean.ShortComment;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -20,5 +22,11 @@ public interface LatestNewsApiServer {
 
     @GET("news/{articleId}")
     Observable<Article> readAticle(@Path("articleId") String articleId);
+
+    @GET("story/{articleId}/long-comments")
+    Observable<LongComment> readLongComment(@Path("articleId") String articleId);
+
+    @GET("story/{articleId}/short-comments")
+    Observable<ShortComment> readShortComment(@Path("articleId") String articleId);
 
 }

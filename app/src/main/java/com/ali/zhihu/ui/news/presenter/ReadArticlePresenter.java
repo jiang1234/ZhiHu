@@ -18,10 +18,12 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ReadArticlePresenter extends BasePresenter<ReadArticleContract.ReadArticleView> implements ReadArticleContract.ReadArticlePresenter {
     LatestNewsApi latestNewsApi;
+
     @Inject
     public ReadArticlePresenter(LatestNewsApi latestNewApi){
         this.latestNewsApi = latestNewApi;
     }
+
     @Override
     public void getArticle(String articleId) {
         latestNewsApi.readArticle(articleId)

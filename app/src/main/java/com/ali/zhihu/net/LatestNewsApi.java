@@ -3,6 +3,8 @@ package com.ali.zhihu.net;
 
 import com.ali.zhihu.bean.Article;
 import com.ali.zhihu.bean.LatestNews;
+import com.ali.zhihu.bean.LongComment;
+import com.ali.zhihu.bean.ShortComment;
 
 import io.reactivex.Observable;
 
@@ -36,5 +38,13 @@ public class LatestNewsApi {
 
     public Observable<Article> readArticle(String articleId){
         return latestNewsApiServer.readAticle(articleId);
+    }
+
+    public Observable<LongComment> readLongComment(String articleId){
+        return latestNewsApiServer.readLongComment(articleId);
+    }
+
+    public Observable<ShortComment> readShortComment(String articleId){
+        return latestNewsApiServer.readShortComment(articleId);
     }
 }

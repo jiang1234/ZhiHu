@@ -4,6 +4,7 @@ import com.ali.zhihu.module.ApplicationModule;
 import com.ali.zhihu.module.HttpModule;
 import com.ali.zhihu.ui.news.LastestNewsFragment;
 import com.ali.zhihu.ui.news.ReadArticleActivity;
+import com.ali.zhihu.ui.news.ReadCommentActivity;
 
 import dagger.Component;
 
@@ -15,4 +16,6 @@ public interface HttpComponent {
     void inject(LastestNewsFragment lastestNewsFragment);
 
     void inject(ReadArticleActivity readArticleActivity);
+
+    void inject(ReadCommentActivity readCommentActivity);
 }
