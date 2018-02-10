@@ -37,37 +37,12 @@
         android:textColor="@color/cardview_dark_background"
         android:textSize="16sp" />
 
-
-    <com.ali.zhihu.widget.ExpandableTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/expandable_text_view"
-        android:layout_alignLeft="@id/comment"
-        android:layout_below="@id/comment"
-        app:collapseDrawable="@drawable/ic_expand_more_black_12dp"
-        app:expandDrawable="@drawable/ic_expand_less_black_12dp">
-
-        <TextView
-            android:id="@id/expandable_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:textSize="16sp"
-            tools:background="?attr/colorButtonNormal" />
-
-        <ImageButton
-            android:id="@id/expand_collapse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginRight="20dp" />
-    </com.ali.zhihu.widget.ExpandableTextView>
     <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/user_id"
-        android:layout_below="@id/expandable_text_view"
+        android:layout_below="@id/comment"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:text="aa"

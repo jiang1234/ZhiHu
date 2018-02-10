@@ -1,5 +1,6 @@
 package com.ali.zhihu.ui.news.presenter;
 
+import android.util.Log;
 import android.view.View;
 
 import com.ali.zhihu.bean.LongComment;
@@ -46,7 +47,7 @@ public class ReadCommentPresenter extends BasePresenter<ReadCommentContract.Read
                 .subscribe(new BaseObserver<List<LongComment.Comment>>() {
                     @Override
                     public void onSuccsee(List<LongComment.Comment> comments) {
-
+                        Log.i("aaa","aaa");
                     }
 
                     @Override

@@ -22,7 +22,7 @@ public class LongComment {
         private String content;
         private String avatar;
         private String time;
-        private List<ReplyTo> reply_to;
+        private ReplyTo reply_to;
         private String id;
         private String likes;
 
@@ -58,11 +58,11 @@ public class LongComment {
             this.time = time;
         }
 
-        public List<ReplyTo> getReply_to() {
+        public ReplyTo getReply_to() {
             return reply_to;
         }
 
-        public void setReply_to(List<ReplyTo> reply_to) {
+        public void setReply_to(ReplyTo reply_to) {
             this.reply_to = reply_to;
         }
 

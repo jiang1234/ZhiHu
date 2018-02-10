@@ -6,6 +6,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/type_comment"
-        android:textSize="10sp"/>
+        android:padding="10dp"
+        android:textSize="16sp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC"
+        android:layout_below="@id/time"/>
 
 </LinearLayout>
