@@ -1,6 +1,7 @@
 package com.ali.zhihu.ui.util;
 
 import com.ali.zhihu.bean.Article;
+import com.ali.zhihu.bean.ReadTheme;
 
 import java.util.List;
 
@@ -71,6 +72,10 @@ public class HtmlUtil {
         return css.concat(HIDE_HEADER).concat(html).concat(js);
     }
     public static String createHtmlData(Article article){
+        return createHtmlData(article.getBody(),createCssTag(article.getCss()),createJsTag(article.getJs()));
+    }
+
+    public static String createHtmlData(ReadTheme article){
         return createHtmlData(article.getBody(),createCssTag(article.getCss()),createJsTag(article.getJs()));
     }
 }

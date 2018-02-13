@@ -33,7 +33,7 @@ public class ReadCommentPresenter extends BasePresenter<ReadCommentContract.Read
     }
 
     @Override
-    public void getLongComment(String articleId) {
+    public void getLongComment(int articleId) {
         latestNewsApi.readLongComment(articleId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -59,7 +59,7 @@ public class ReadCommentPresenter extends BasePresenter<ReadCommentContract.Read
     }
 
     @Override
-    public void getShortComment(String articleId) {
+    public void getShortComment(int articleId) {
         latestNewsApi.readShortComment(articleId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

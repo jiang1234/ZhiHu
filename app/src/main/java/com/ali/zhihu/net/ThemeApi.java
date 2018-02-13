@@ -1,5 +1,6 @@
 package com.ali.zhihu.net;
 
+import com.ali.zhihu.bean.ReadTheme;
 import com.ali.zhihu.bean.Theme;
 
 import io.reactivex.Observable;
@@ -28,5 +29,9 @@ public class ThemeApi {
 
     public Observable<Theme> getBeforeTheme(int themeId,int storyId){
         return themeApiServer.getBeforeTheme(themeId,storyId);
+    }
+
+    public Observable<ReadTheme> readTheme(int articleId){
+        return themeApiServer.readTheme(articleId);
     }
 }

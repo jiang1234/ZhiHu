@@ -5,6 +5,7 @@ import com.ali.zhihu.module.HttpModule;
 import com.ali.zhihu.ui.news.LastestNewsFragment;
 import com.ali.zhihu.ui.news.ReadArticleActivity;
 import com.ali.zhihu.ui.news.ReadCommentActivity;
+import com.ali.zhihu.ui.theme.ReadThemeActivity;
 import com.ali.zhihu.ui.theme.ThemeFragment;
 
 import dagger.Component;
@@ -21,4 +22,6 @@ public interface HttpComponent {
     void inject(ReadCommentActivity readCommentActivity);
 
     void inject(ThemeFragment themeFragment);
+
+    void inject(ReadThemeActivity readThemeActivity);
 }

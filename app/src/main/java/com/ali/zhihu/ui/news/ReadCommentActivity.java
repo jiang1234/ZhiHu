@@ -29,7 +29,7 @@ import static com.ali.zhihu.ui.news.ReadArticleActivity.ARTICLEID;
 public class ReadCommentActivity extends BaseActivity<ReadCommentPresenter> implements ReadCommentContract.ReadCommentView{
     public final static String READ_COMMENT = "READ_COMMENT";
     private RecyclerView recyclerView;
-    private String articleId;
+    private int articleId;
     private CommentAdapter commentAdapter;
     private List<CommentItem> commentItemList;
     private Toolbar toolbar;
@@ -79,7 +79,7 @@ public class ReadCommentActivity extends BaseActivity<ReadCommentPresenter> impl
     @Override
     public void initDate() {
         Intent intent = getIntent();
-        articleId = intent.getStringExtra(READ_COMMENT);
+        articleId = intent.getIntExtra(READ_COMMENT,0);
         presenter.getLongComment(articleId);
         presenter.getShortComment(articleId);
 

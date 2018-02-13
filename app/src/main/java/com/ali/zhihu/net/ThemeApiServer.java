@@ -1,5 +1,7 @@
 package com.ali.zhihu.net;
 
+import com.ali.zhihu.bean.Article;
+import com.ali.zhihu.bean.ReadTheme;
 import com.ali.zhihu.bean.Theme;
 
 import io.reactivex.Observable;
@@ -17,4 +19,7 @@ public interface ThemeApiServer {
     @GET("theme/{themeId}/before/{storyId}")
     Observable<Theme> getBeforeTheme(@Path("themeId") int themeId,
                                 @Path("storyId") int storyId);
+
+    @GET("news/{articleId}")
+    Observable<ReadTheme> readTheme(@Path("articleId") int articleId);
 }

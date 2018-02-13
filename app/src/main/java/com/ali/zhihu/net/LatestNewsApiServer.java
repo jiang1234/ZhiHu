@@ -24,9 +24,9 @@ public interface LatestNewsApiServer {
     Observable<Article> readAticle(@Path("articleId") int articleId);
 
     @GET("story/{articleId}/long-comments")
-    Observable<LongComment> readLongComment(@Path("articleId") String articleId);
+    Observable<LongComment> readLongComment(@Path("articleId") int articleId);
 
     @GET("story/{articleId}/short-comments")
-    Observable<ShortComment> readShortComment(@Path("articleId") String articleId);
+    Observable<ShortComment> readShortComment(@Path("articleId") int articleId);
 
 }

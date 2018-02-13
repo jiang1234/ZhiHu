@@ -40,11 +40,11 @@ public class LatestNewsApi {
         return latestNewsApiServer.readAticle(articleId);
     }
 
-    public Observable<LongComment> readLongComment(String articleId){
+    public Observable<LongComment> readLongComment(int articleId){
         return latestNewsApiServer.readLongComment(articleId);
     }
 
-    public Observable<ShortComment> readShortComment(String articleId){
+    public Observable<ShortComment> readShortComment(int articleId){
         return latestNewsApiServer.readShortComment(articleId);
     }
 }

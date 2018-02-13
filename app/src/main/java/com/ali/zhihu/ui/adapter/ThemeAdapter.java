@@ -1,6 +1,7 @@
 package com.ali.zhihu.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.ali.zhihu.R;
 import com.ali.zhihu.bean.LatestNewsItem;
 import com.ali.zhihu.bean.Theme;
 import com.ali.zhihu.bean.ThemeItem;
+import com.ali.zhihu.ui.theme.ReadThemeActivity;
 import com.ali.zhihu.ui.util.ImageLoaderUtil;
 
 import java.util.List;
@@ -69,6 +71,7 @@ public class ThemeAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
                 int position = getRealPosition(themeViewHolder);
                 int articleId = themeItemList.get(position).getId();
+                toReadInRecycler(articleId);
             }
         });
         return themeViewHolder;
@@ -166,5 +169,11 @@ public class ThemeAdapter extends RecyclerView.Adapter {
         }
         notifyItemRangeChanged(oldItemNum,storiesList.size());
         return storyId;
+    }
+
+    public void toReadInRecycler(int articleId){
+        Intent intent = new Intent(context, ReadThemeActivity.class);
+        intent.putExtra(ReadThemeActivity.ARTICLEID,articleId);
+        context.startActivity(intent);
     }
 }

@@ -13,9 +13,9 @@ import java.util.List;
 
 public interface ReadCommentContract {
     interface ReadCommentPresenter extends BaseContract.BasePresenter<ReadCommentView>{
-        void getLongComment(String articleId);
+        void getLongComment(int articleId);
 
-        void getShortComment(String articleId);
+        void getShortComment(int articleId);
     }
     interface ReadCommentView extends BaseContract.BaseView{
         void readLongComment(List<LongComment.Comment> longComment);
