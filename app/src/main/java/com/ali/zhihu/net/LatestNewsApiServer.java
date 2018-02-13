@@ -21,7 +21,7 @@ public interface LatestNewsApiServer {
     Observable<LatestNews> getBeforeNews(@Path("dateId") String dateId);
 
     @GET("news/{articleId}")
-    Observable<Article> readAticle(@Path("articleId") String articleId);
+    Observable<Article> readAticle(@Path("articleId") int articleId);
 
     @GET("story/{articleId}/long-comments")
     Observable<LongComment> readLongComment(@Path("articleId") String articleId);

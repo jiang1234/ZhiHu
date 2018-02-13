@@ -9,7 +9,7 @@ import com.ali.zhihu.ui.base.BaseContract;
 
 public interface ReadArticleContract {
     interface ReadArticlePresenter extends BaseContract.BasePresenter<ReadArticleView>{
-        void getArticle(String articleId);
+        void getArticle(int articleId);
     }
     interface ReadArticleView extends BaseContract.BaseView{
         void readZhihuArticle(Article article);

@@ -28,7 +28,7 @@ import com.ali.zhihu.ui.util.ImageLoaderUtil;
 public class ReadArticleActivity extends BaseActivity<ReadArticlePresenter> implements ReadArticleContract.ReadArticleView {
     public static final String ARTICLEID = "ARTICLEID";
     private WebView webView;
-    private String articleId;
+    private int articleId;
     private Toolbar toolbar;
     private TextView imageTitle;
     private TextView imageSource;
@@ -95,7 +95,7 @@ public class ReadArticleActivity extends BaseActivity<ReadArticlePresenter> impl
     @Override
     public void initDate() {
         Intent intent = getIntent();
-        articleId = intent.getStringExtra(ARTICLEID);
+        articleId = intent.getIntExtra(ARTICLEID,'0');
         presenter.getArticle(articleId);
     }
 

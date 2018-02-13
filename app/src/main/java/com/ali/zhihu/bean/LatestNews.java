@@ -84,7 +84,7 @@ public class LatestNews implements Serializable {
         //作用未知
         private int type;
         //内容id
-        private String id;
+        private int id;
 
         @Override
         public String toString() {
@@ -129,11 +129,11 @@ public class LatestNews implements Serializable {
             this.type = type;
         }
 
-        public String getId() {
+        public int getId() {
             return id;
         }
 
-        public void setId(String id) {
+        public void setId(int id) {
             this.id = id;
         }
 
@@ -146,7 +146,7 @@ public class LatestNews implements Serializable {
         //作用未知
         private int type;
         //内容id
-        private String id;
+        private int id;
 
         @Override
         public String toString() {
@@ -191,11 +191,11 @@ public class LatestNews implements Serializable {
             this.type = type;
         }
 
-        public String getId() {
+        public int getId() {
             return id;
         }
 
-        public void setId(String id) {
+        public void setId(int id) {
             this.id = id;
         }
     }

@@ -18,7 +18,9 @@ import com.ali.zhihu.ui.news.ReadArticleActivity;
 import com.ali.zhihu.ui.util.DateUtil;
 import com.ali.zhihu.ui.util.ImageLoaderUtil;
 import com.bumptech.glide.Glide;
+import com.youth.banner.Banner;
 
+import java.util.Date;
 import java.util.List;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
@@ -87,7 +89,7 @@ public class LatestNewsAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View view) {
                     int posotion = getRealPosition(newViewHolder);
-                    String articleId = mlatestNewsItemList.get(posotion).getId();
+                    int articleId = mlatestNewsItemList.get(posotion).getId();
                     toReadInRecycler(articleId);
                 }
             });
@@ -150,9 +152,58 @@ public class LatestNewsAdapter extends RecyclerView.Adapter {
         return headerView == null ? position :position - 1;
     }
 
-    public void toReadInRecycler(String articleId){
+    public void toReadInRecycler(int articleId){
         Intent intent = new Intent(context, ReadArticleActivity.class);
         intent.putExtra(ReadArticleActivity.ARTICLEID,articleId);
         context.startActivity(intent);
+    }
+
+    public void addNew(List<LatestNews.StoriesBean> storiesBeanList, String date){
+        int oldItemNum = getItemCount();
+        LatestNewsItem latestNewsItem0= new LatestNewsItem(date,LatestNewsItem.TYPE_DATE);
+        mlatestNewsItemList.add(0,latestNewsItem0);
+        int i = 1;
+        //int i = 0;
+        for(LatestNews.StoriesBean storiesBean : storiesBeanList){
+            LatestNewsItem latestNewsItem= new LatestNewsItem(storiesBean.getTitle(),storiesBean.getImages().get(0),LatestNewsItem.TYPE_NEW,storiesBean.getId());
+            mlatestNewsItemList.add(i,latestNewsItem);
+            i++;
+        }
+        if(oldItemNum == 0){
+            notifyDataSetChanged();
+        }else{
+            notifyItemRangeInserted(0,storiesBeanList.size() + 1);
+            notifyItemRangeChanged(storiesBeanList.size() + 1,oldItemNum);
+        }
+
+    }
+    public void refreshNew(List<LatestNews.StoriesBean> storiesBeanList, String date, int endRefreshIndex){
+        int oldItemNum = getItemCount();
+        if(!DateUtil.isSystemDate(date)){
+            LatestNewsItem latestNewsItem0= new LatestNewsItem(date,LatestNewsItem.TYPE_DATE);
+            mlatestNewsItemList.add(0,latestNewsItem0);
+            }
+
+        for(int i = 0; i <= endRefreshIndex; i++){
+            int j = 1;
+            LatestNews.StoriesBean storiesBean = storiesBeanList.get(i);
+            LatestNewsItem latestNewsItem= new LatestNewsItem(storiesBean.getTitle(),storiesBean.getImages().get(0),LatestNewsItem.TYPE_NEW,storiesBean.getId());
+            mlatestNewsItemList.add(j,latestNewsItem);
+            j++;
+        }
+
+        if(oldItemNum == 0){
+            notifyDataSetChanged();
+        }else{
+            if(!DateUtil.isSystemDate(date)){
+                notifyItemRangeInserted(0,endRefreshIndex + 2);
+                notifyItemRangeChanged(endRefreshIndex + 2,oldItemNum);
+            }else{
+                notifyItemRangeInserted(1,endRefreshIndex + 1);
+                notifyItemRangeChanged(endRefreshIndex + 1,oldItemNum);
+            }
+
+        }
+
     }
 }

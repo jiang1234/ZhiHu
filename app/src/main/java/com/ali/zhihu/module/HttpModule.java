@@ -1,8 +1,11 @@
 package com.ali.zhihu.module;
 
 import com.ali.zhihu.bean.LatestNews;
+import com.ali.zhihu.bean.Theme;
 import com.ali.zhihu.net.LatestNewsApi;
 import com.ali.zhihu.net.LatestNewsApiServer;
+import com.ali.zhihu.net.ThemeApi;
+import com.ali.zhihu.net.ThemeApiServer;
 import com.ali.zhihu.ui.news.contract.LatestNewsContract;
 import com.ali.zhihu.ui.news.presenter.LatestNewsPresenter;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -38,6 +41,12 @@ public class HttpModule {
     LatestNewsApi provideLatestNewsApi(Retrofit retrofit){
         LatestNewsApiServer latestNewsApiServer= retrofit.create(LatestNewsApiServer.class);
         return LatestNewsApi.getInstance(latestNewsApiServer);
+    }
+
+    @Provides
+    ThemeApi provideThemeApi(Retrofit retrofit){
+        ThemeApiServer themeApiServer= retrofit.create(ThemeApiServer.class);
+        return ThemeApi.getInstance(themeApiServer);
     }
   //  @Provides
    // LatestNewsPresenter provideLatestNewsPresenter(LatestNewsApi latestNewsApi){

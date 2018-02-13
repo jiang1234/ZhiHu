@@ -60,6 +60,7 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
     private String beforeDate;
     //请求为1121 实际为1120
     private String berforeDateShow;
+    private int endRefreshIndex;
 
     @Override
     public void setDate(String date) {
@@ -149,22 +150,19 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
     @Override
     public void loadLatestView(List<LatestNews.StoriesBean> storiesBeanList) {
         Log.i(TAG,"loadLatestView");
-        int oldItemNum = latestNewsAdapter.getItemCount();
-        LatestNewsItem latestNewsItem0= new LatestNewsItem(date,LatestNewsItem.TYPE_DATE);
-        latestNewsItemsList.add(0,latestNewsItem0);
-        int i = 1;
-        //int i = 0;
-        for(LatestNews.StoriesBean storiesBean : storiesBeanList){
-            LatestNewsItem latestNewsItem= new LatestNewsItem(storiesBean.getTitle(),storiesBean.getImages().get(0),LatestNewsItem.TYPE_NEW,storiesBean.getId());
-            latestNewsItemsList.add(i,latestNewsItem);
-            i++;
+        if(latestNewsItemsList.size() != 0){
+            endRefreshIndex = needRefresh(latestNewsItemsList.get(1).getId(),storiesBeanList);
+            if(endRefreshIndex == -1){
+                isRefresh = false;
+                swipeRefreshLayout.setRefreshing(false);
+                return;
+            }else{
+                latestNewsAdapter.refreshNew(storiesBeanList,date,endRefreshIndex);
+                isRefresh = false;
+                swipeRefreshLayout.setRefreshing(false);
+            }
         }
-        if(oldItemNum == 0){
-            latestNewsAdapter.notifyDataSetChanged();
-        }else{
-            latestNewsAdapter.notifyItemRangeInserted(0,storiesBeanList.size() + 1);
-            latestNewsAdapter.notifyItemRangeChanged(storiesBeanList.size() + 1,oldItemNum);
-        }
+        latestNewsAdapter.addNew(storiesBeanList,date);
         isRefresh = false;
         swipeRefreshLayout.setRefreshing(false);
     }
@@ -210,30 +208,41 @@ public class LastestNewsFragment extends BaseFragment<LatestNewsPresenter> imple
 
     public void refreshNews(){
         //presenter.getLatestNews();
-        if(!DateUtil.isSystemDate(date)){
+       // if(!DateUtil.isSystemDate(date)){
             presenter.getLatestNews();
             latestNewsRecyclerView.scrollToPosition(0);
-        }else{
+        //}else{
             //presenter.getLatestNews();
-            isRefresh = false;
-            swipeRefreshLayout.setRefreshing(false);
-        }
+        //    isRefresh = false;
+        //    swipeRefreshLayout.setRefreshing(false);
+        //}
     }
     @Override
     public void initDate() {
         isLoadMore = false;
         isRefresh = false;
         beforeDays = 0;
+        presenter.getHeader();
         presenter.getLatestNews();
 
     }
 
-    public void toReadInBanner(String articleId){
+    public void toReadInBanner(int articleId){
         Intent intent = new Intent(getActivity(), ReadArticleActivity.class);
         intent.putExtra(ReadArticleActivity.ARTICLEID,articleId);
         startActivity(intent);
     }
 
+    public int needRefresh(int articleId,List<LatestNews.StoriesBean> storiesList){
+        //return storyId == storiesList.get(0).getId();
+
+        for(int i = 0; i < storiesList.size(); i++ ){
+            if(articleId == storiesList.get(i).getId()){
+                return i - 1;
+            }
+        }
+        return storiesList.size() - 1;
+    }
 
 
 }

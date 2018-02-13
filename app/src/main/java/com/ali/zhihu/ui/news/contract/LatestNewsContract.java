@@ -12,7 +12,7 @@ import java.util.List;
 public interface LatestNewsContract {
     interface LastNewsPresenter extends BaseContract.BasePresenter<LastestNewView>{
         void getLatestNews();
-
+        void getHeader();
         void getBeforeNews(String dateId);
 
     }

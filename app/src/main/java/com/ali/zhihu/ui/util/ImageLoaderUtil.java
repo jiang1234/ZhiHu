@@ -18,6 +18,11 @@ public class ImageLoaderUtil {
                 .into(imageView);
     }
 
+    public static void GlideImageLoader(Context context, int path, ImageView imageView){
+        Glide.with(context)
+                .load(path)
+                .into(imageView);
+    }
     public static class GlideBannerImageLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {

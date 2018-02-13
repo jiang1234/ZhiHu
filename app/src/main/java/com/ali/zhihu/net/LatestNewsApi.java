@@ -36,7 +36,7 @@ public class LatestNewsApi {
         return latestNewsApiServer.getBeforeNews(dateId);
     }
 
-    public Observable<Article> readArticle(String articleId){
+    public Observable<Article> readArticle(int articleId){
         return latestNewsApiServer.readAticle(articleId);
     }
 

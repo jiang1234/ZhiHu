@@ -25,7 +25,7 @@ public class ReadArticlePresenter extends BasePresenter<ReadArticleContract.Read
     }
 
     @Override
-    public void getArticle(String articleId) {
+    public void getArticle(int articleId) {
         latestNewsApi.readArticle(articleId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

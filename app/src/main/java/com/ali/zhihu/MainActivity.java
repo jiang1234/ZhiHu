@@ -16,6 +16,7 @@ import android.view.MenuItem;
 
 import com.ali.zhihu.R;
 import com.ali.zhihu.ui.news.LastestNewsFragment;
+import com.ali.zhihu.ui.theme.ThemeFragment;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -34,24 +35,34 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.nav_mian:
+                        replaceFragment(new LastestNewsFragment());
                         break;
                     case R.id.nav_normal:
+                        startFragment(13);
                         break;
                     case R.id.nav_user:
+                        startFragment(12);
                         break;
                     case R.id.nav_movie:
+                        startFragment(3);
                         break;
                     case R.id.nav_boring:
+                        startFragment(11);
                         break;
                     case R.id.nav_design:
+                        startFragment(4);
                         break;
                     case R.id.nav_company:
+                        startFragment(5);
                         break;
                     case R.id.nav_money:
+                        startFragment(6);
                         break;
                     case R.id.nav_intenet:
+                        startFragment(10);
                         break;
                     case R.id.nav_startgame:
+                        startFragment(2);
                         break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -67,7 +78,13 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new LastestNewsFragment());
 
     }
-
+    public void startFragment(int themeId){
+        ThemeFragment themeFragment = new ThemeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(ThemeFragment.THEME_ID,themeId);
+        themeFragment.setArguments(bundle);
+        replaceFragment(themeFragment);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){

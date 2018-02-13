@@ -39,23 +39,12 @@ public class LatestNewsPresenter extends BasePresenter<LatestNewsContract.Lastes
         Observable<LatestNews> observable = latestNewsApi.getLatestNews();
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Function<LatestNews, List<LatestNews.TopStoriesBean>>() {
+                .subscribe(new BaseObserver<LatestNews>(){
                     @Override
-                    public List<LatestNews.TopStoriesBean> apply(LatestNews latestsNews) throws Exception{
-                        List<LatestNews.StoriesBean> storiesBeenList = latestsNews.getStories();
-                        List<LatestNews.TopStoriesBean> topStoriesBeenList = latestsNews.getTop_stories();
+                    public void onSuccsee(LatestNews latestsNews) {
                         mView.setDate(latestsNews.getDate());
-
-                        mView.loadLatestBanner(topStoriesBeenList);
+                        List<LatestNews.StoriesBean> storiesBeenList = latestsNews.getStories();
                         mView.loadLatestView(storiesBeenList);
-                        return topStoriesBeenList;
-
-                    }
-                })
-                .subscribe(new BaseObserver<List<LatestNews.TopStoriesBean>>(){
-                    @Override
-                    public void onSuccsee(List<LatestNews.TopStoriesBean> s) {
-                        Log.i(TAG,"success");
                     }
 
                     @Override
@@ -70,18 +59,32 @@ public class LatestNewsPresenter extends BasePresenter<LatestNewsContract.Lastes
         latestNewsApi.getBeforeNews(dateId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Function<LatestNews, List<LatestNews.StoriesBean>>(){
+                .subscribe(new BaseObserver<LatestNews>() {
                     @Override
-                    public List<LatestNews.StoriesBean> apply(LatestNews latestNews) throws Exception {
+                    public void onSuccsee(LatestNews latestNews) {
                         List<LatestNews.StoriesBean> beforeStoriesBeanList = latestNews.getStories();
                         mView.loadBeforeView(beforeStoriesBeanList);
-                        return beforeStoriesBeanList;
-                    }
-                })
-                .subscribe(new BaseObserver<List<LatestNews.StoriesBean>>() {
-                    @Override
-                    public void onSuccsee(List<LatestNews.StoriesBean> storiesBeen) {
                         Log.i(TAG,"success");
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        Log.i(TAG,"fail");
+                    }
+                });
+    }
+
+    @Override
+    public void getHeader() {
+        Observable<LatestNews> observable = latestNewsApi.getLatestNews();
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<LatestNews>(){
+                    @Override
+                    public void onSuccsee(LatestNews latestsNews) {
+                        mView.setDate(latestsNews.getDate());
+                        List<LatestNews.TopStoriesBean> topStoriesBeenList = latestsNews.getTop_stories();
+                        mView.loadLatestBanner(topStoriesBeenList);
                     }
 
                     @Override
